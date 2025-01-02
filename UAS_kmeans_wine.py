@@ -72,14 +72,14 @@ with col1:
             st.session_state['results'] = st.session_state['results'][-10:]
 with col2:
     if st.sidebar.button('Reset Hasil'):
-        st.session_state['reset'] = True
-    
-    if 'reset' in st.session_state and st.session_state['reset']:
         if 'results' in st.session_state:
-            del st.session_state['results']
+            del st.session_state['results']  # Hapus hasil
+        st.session_state['reset'] = True  # Tandai untuk reset
+    
+    if st.session_state.get('reset', False):
         st.session_state['reset'] = False
-        st.success('Hasil telah direset!')
-        st.experimental_rerun()
+        st.experimental_rerun()  # Reload setelah reset
+
 
 
 # Menampilkan semua hasil prediksi dalam tabel
