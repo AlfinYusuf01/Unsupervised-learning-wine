@@ -71,14 +71,18 @@ with col1:
         if len(st.session_state['results']) > 10:
             st.session_state['results'] = st.session_state['results'][-10:]
 with col2:
+    # Inisialisasi session state
+    if 'reset' not in st.session_state:
+        st.session_state['reset'] = False
+
+    # Tombol Reset
     if st.sidebar.button('Reset Hasil'):
+        st.session_state['reset'] = True
+
+    if st.session_state['reset']:
         if 'results' in st.session_state:
             del st.session_state['results']  # Hapus hasil
-        st.session_state['reset'] = True  # Tandai untuk reset
-    
-    if st.session_state.get('reset', False):
-        st.session_state['reset'] = False
-        st.experimental_rerun()  # Reload setelah reset
+        st.success("Hasil telah direset. Silakan refresh halaman secara manual untuk melihat perubahan.")
 
 
 
